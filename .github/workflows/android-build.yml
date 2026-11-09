@@ -1,0 +1,32 @@
+
+name: Android ARM64 Build Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout KataGomo
+        uses: actions/checkout@v4
+        with:
+          repository: hzyhhzy/KataGomo
+          ref: Gom2026
+          fetch-depth: 1
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build git
+          
+      - name: Check Android NDK
+        run: |
+          echo "Checking Android NDK availability"
+          echo "Runner architecture:"
+          uname -m
+          echo "CMake version:"
+          cmake --version
+          echo "Ninja version:"
+          ninja --version
